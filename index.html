@@ -43,17 +43,12 @@
 	
 	<script src='RadViz.js' defer></script>	
 	<script src='index.js' defer> //https://github.com/WYanChao/RadViz</script>	
-	
+	<input type="file" onchange="loadFile()" />
     <div class="container-fluid">
     	
     	<div class="col-xs-12" id="content">
 
-    		<div class="col-xs-4">
-				<div class="table-title" style="font-size: 24px; font-family: 'Muli', 'Helvetica', Arial, sans-serif; font-weight: bold; color: #000000;">Data Table
-				</div>
-                <div id="data-table">
-				</div>
-    		</div>
+    	
 			
     		<div class="col-xs-8">
                 <div id="radviz">
@@ -61,7 +56,9 @@
 					<button id="resetRadViz" onclick="resetRadViz()">Reset RadViz</button>
 					</div>	
 				</div>  
-     		</div>
+			 </div>
+			 
+	
     	</div>
     </div>
 </body>

@@ -1,8 +1,8 @@
 //fixed table headers
-document.getElementById('data-table').addEventListener('scroll',function(){
+/*document.getElementById('data-table').addEventListener('scroll',function(){
     var translate = 'translate(0,'+this.scrollTop+'px)';
     this.querySelector('thead').style.transform = translate;
- });
+ }); */
  
  function RadViz(){
      /////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ document.getElementById('data-table').addEventListener('scroll',function(){
              radiusDT = 5; // radius of DA and data points
          let nodecolor = d3.scaleOrdinal(d3.schemeCategory20); //set color scheme
          const formatnumber = d3.format(',d');		
-         let margin = {top:50, right:150, bottom:50, left:80},
+         let margin = {top:50, right:180, bottom:50, left:200},
              width = 800,
              height = 750;		
          let chartRadius = Math.min((height-margin.top-margin.bottom) , (width-margin.left-margin.right))/2;		
@@ -68,14 +68,16 @@ document.getElementById('data-table').addEventListener('scroll',function(){
          // legend data
          let colorspace = [], colorclass = [];
          dataE.forEach(function(d, i){
+             
              if(colorspace.indexOf(d.color)<0) {
+                console.log(lastrow)
                  colorspace.push(d.color); 
-                 colorclass.push(d.class); }
+                 colorclass.push(d[lastrow]); }
          });	
              
          /////////////////////////////////////////////////////////
          // define DOM components
-         const table = d3.select(DOMTable).append('table').attr('class','table table-hover');
+ /*        const table = d3.select(DOMTable).append('table').attr('class','table table-hover'); */
          const radviz = d3.select(DOMRadViz);
          let svg = radviz.append('svg').attr('id', 'radviz')
              .attr('width', width)
@@ -108,12 +110,12 @@ document.getElementById('data-table').addEventListener('scroll',function(){
              
          /////////////////////////////////////////////////////////
          //Render the list.
-         const RVTable 		= d3.select(DOMTable).data([RVtable]);
+//         const RVTable 		= d3.select(DOMTable).data([RVtable]);
          //Render the radviz
          const RVRadviz		= d3.select(DOMRadViz).data([RVradviz()]);		
          /////////////////////////////////////////////////////////
          // Rendering
-         RVTable.each(render);
+  //       RVTable.each(render);
          RVRadviz.each(render);
          function render(method) {
              d3.select(this).call(method);	
@@ -157,7 +159,7 @@ document.getElementById('data-table').addEventListener('scroll',function(){
  
                      // add multiple lines for each information			
                      let tooltip = tooltipContainer.selectAll('text').data(titles)
-                             .enter().append('g').attr('x', 0).attr('y',function(d,i){return 25*i;});
+                             .enter().append('g').attr('x', 0).attr('y',function(d,i){  return 25*i;});
                      tooltip.append('rect').attr('width', 150).attr('height', 25).attr('x', 0).attr('y',function(d,i){return 25*i;})
                              .attr('fill', d3.rgb(200,200,200));
                      tooltip.append('text').attr('width', 150).attr('height', 25).attr('x', 5).attr('y',function(d,i){return 25*(i+0.5);})
@@ -290,20 +292,26 @@ document.getElementById('data-table').addEventListener('scroll',function(){
                          let legendcircle = center.selectAll('circle.legend').data(colorspace)
                              .enter().append('circle').attr('class', 'legend')
                              .attr('r', radiusDT)
-                             .attr('cx', xLegend)
+                             .attr('cx', xLegend-70)
                              .attr('cy', (d, i) => i*yLegend)
                              .attr('fill', d=>d);
-                         let legendtexts = center.selectAll('text.legend').data(colorclass)
+                             
+                         let legendtexts = center.selectAll('text.legend')
+                         .data(colorclass)
+                      //   .data(colorspace)
                              .enter().append('text').attr('class', 'legend')
-                             .attr('x', xLegend + 2 * radiusDT)
+                             .attr('x',xLegend -12 * radiusDT )
                              .attr('y', (d, i) => i*yLegend+5)
-                             .text(d => d).attr('font-size', '16pt').attr('dominat-baseline', 'middle')
+                             .text(d => d)
+                          //   .text(function(d,i) { console.log(d,i); return d;})
+                             .attr('font-size', '16pt').attr('dominat-baseline', 'middle')
                              .on('mouseover', function(d){
                                  //when mouse hover, other classes will be discolored.
+                                 
                                  let tempa = d3.select(DOMRadViz).selectAll('.circle-data');
                                  tempa.nodes().forEach((element) => {
                                      let tempb = element.getAttribute('id');
-                                     if (dataE[tempb].class != d) {
+                                     if (dataE[tempb].quality != d) {
                                          d3.select(element).attr('fill-opacity', 0.2).attr('stroke-width', 0);
                                      }
                                  });
@@ -320,7 +328,7 @@ document.getElementById('data-table').addEventListener('scroll',function(){
          }
      
          // Functions for display data table	and update click event.
-         function RVtable(div) {
+    /*     function RVtable(div) {
              div.each(function() {
                  const headers = table.append('thead').attr('class', 'table-header').append('tr').selectAll('th').data(titles);
                  headers.exit().remove();
@@ -358,7 +366,7 @@ document.getElementById('data-table').addEventListener('scroll',function(){
                      .merge(cell);
              });
          } // end of RVTable function
-     
+     */
          /////////////////////////////////////////////////////////
          // functions for data processing
          //calculate theta and r
