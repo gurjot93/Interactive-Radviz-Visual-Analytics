@@ -2,63 +2,91 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>RadViz</title>
-	
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>RadViz</title>
 
-<style type="text/css">
+    <style type="text/css">
+        body {
+            background-color: #ede1514d;
+            margin: 50px;
+        }
 
-	#content {
-		margin-top: 35px;
-		height: 90vh;
-		border-bottom: 1px solid #eee;
-	}
-	#content .col-xs-8 {
-		height: 85vh;
-		overflow: auto;
-	}
-	#content .col-xs-4 {
-		border-right: 1px solid #eee;
-	}
-	
-	#data-table {
-		font-family: 'Helvetica Neue';
-		font-size: 18px;
-		overflow: auto;
-		height: 85vh;
-	}
-	
-	.table-header {
-		background-color: #ccc;
-	}
-</style>
+
+    </style>
 
 </head>
 
 <body>
 
-    <script src="./libs/jquery-2.1.4.min.js"></script>
-	<script src="https://d3js.org/d3.v4.js"></script>
-	
-	
-	<script src='RadViz.js' defer></script>	
-	<script src='index.js' defer> //https://github.com/WYanChao/RadViz</script>	
-	<input type="file" onchange="loadFile()" />
-    <div class="container-fluid">
-    	
-    	<div class="col-xs-12" id="content">
+    <script src="https://d3js.org/d3.v4.js"></script>
 
-    	
-			
-    		<div class="col-xs-8">
-                <div id="radviz">
-					<div class="radviz-title" style="font-size: 24px; font-family: 'Muli', 'Helvetica', Arial, sans-serif; font-weight: bold; color: #000000;">RadViz
-					<button id="resetRadViz" onclick="resetRadViz()">Reset RadViz</button>
-					</div>	
-				</div>  
-			 </div>
-			 
-	
-    	</div>
+    <script src='RadVizVisualization.js' defer>    </script>
+
+    <div class="container-fluid">
+
+        <div class="col-xs-12" id="content">
+
+            <div class="col-xs-8">
+                <div class="page-top">
+
+                    <div class="radviz-title" style="font-size: 24px; font-family: 'Muli', 'Helvetica', Arial, sans-serif; font-weight: bold; color: #000000;text-align: center;">
+                        <span> RadViz : </span>
+
+                        <button style="
+											width: 120px;
+											z-index: 123;
+											height: 30px;
+											color: white;
+											background-color: #4a22c496;
+											border: 1px solid black;
+											border-radius: 4px;
+											padding: 6px 1px;
+											font-weight: 200;
+											font-size: 15px;
+											position: relative;
+										">Upload File
+                            <input type="file" onchange="loadFile()" style="
+
+											width: 100px;
+
+											opacity: 0;
+											position: absolute;
+											left: 15px;
+											top: 2px;
+
+											">
+                        </button>
+
+                        <button id="resetRadViz" style="width: 120px;
+										z-index: 123;
+										height: 30px;
+										color: white;
+										background-color: #4a22c496;
+										border: 1px solid black;
+										border-radius: 4px;
+										padding: 6px 1px;
+										font-weight: 200;
+										font-size: 15px;
+										" onclick="resetRadViz()">Reset RadViz</button>
+
+                        <div class="displayCSVColumns" style="margin:25px 0px" id="displayCSVColumns"></div>
+
+                    </div>
+
+                    <div id="radviz" style="display: block;text-align: center;">
+
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;display: none;text-align: center;position: relative;" id="div-range">
+                    <span style="top: -6px;position: relative;padding-right: 20px;    font-weight: 400;	font-size: 18px;"> Update Opacity : </span>
+                    <input id="opacity" type="range" min="50" max="100" value="100" style="width: 400px;margin-right: 10px;">
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </body>
+
+</html>
