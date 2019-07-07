@@ -159,6 +159,7 @@ function RadViz() {
   DAnchor,
   DATA;
 
+  
 
  /*Function to generate RadViz*/
  function RV(div) {
@@ -181,7 +182,7 @@ function RadViz() {
 
   /* Storing The data in Titles */
   var titles = TableTitle;
-  titles.unshift('index');
+ // titles.unshift('index');
 
   /* Generating Dynamic Circles*/
   var dimensions = Dimensionality,
@@ -240,6 +241,7 @@ function RadViz() {
    .attr('font-size', '16pt').attr('dominat-baseline', 'middle')
    .style("font-weight", 900);
 
+ 
 
   let center = svg.append('g').attr('class', 'center').attr('transform', `translate(${margin.left},${margin.top})`);
 
@@ -275,6 +277,7 @@ function RadViz() {
   /* Resetting The Radviz*/
   document.getElementById('resetRadViz').onclick = function() {
    resetRadViz()
+  
   };
 
   /* Function to reset the Radviz Referred from:  https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.min.js*/
@@ -313,22 +316,20 @@ function RadViz() {
       });
      tooltip.append('rect').attr('width', 200).attr('height', 25)
       .attr('x', 0).attr('y', function(d, i) {
-       //   titles.filter(el => el !== 'index')
-       //if (d != lastrow || d!= 'index') {
-       //  console.log(d,d.length,i)
-       return 25 * (i + 1);
-       //}
+
+       return 25 * (i);
+      
       })
-      .attr('opacity', 0)
+      .attr('opacity', 0.8)
       .attr('fill', "rgb(205,133,63)");
      tooltip.append('text').attr('width', 150).attr('height', 25).attr('x', 5).attr('y', function(d, i) {
        //     console.log(d);
        if (d != 'index') {
-        return 25 * (i + 0.5);
+        return 25 * (i + 0.7);
        }
       })
-      .text(d => d + ':').attr('text-anchor', 'start').attr('dominat-baseline', 'hanging').style('font-size', "19px").style("font-weight", 900)
-     //.style("fill", "rgb(25,25,112)");
+      .text(d => d + ':').attr('text-anchor', 'start').attr('dominat-baseline', 'hanging').style('font-size', "18px").style("font-weight", 900)
+     .style("fill", "rgb(25,25,112)");
 
      /* Plotting the node and the legend*/
      drawDT();
